@@ -1,13 +1,17 @@
 {
-    "name": "bitboard",
-    "version": "0.0.1",
-    "description": "simple bitboard for developing board games in javascript",
-    "author": "Henry Huang",
-    "license": "MIT",
-    "scripts": {
-        "build": "make lint; make test; make uglify",
-        "lint" : "make lint",
-        "test" : "make test",
-        "clean": "make clean"
-    }
+  "name": "bitboard",
+  "version": "0.0.1",
+  "description": "simple bitboard for developing board games in javascript",
+  "author": "Henry Huang",
+  "license": "MIT",
+  "scripts": {
+    "build": "make lint; make test; make uglify",
+    "lint": "make lint",
+    "test": "mocha test/gb.spec.js",
+    "clean": "make clean"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "requirejs": "^2.3.3"
+  }
 }
