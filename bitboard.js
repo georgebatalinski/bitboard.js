@@ -49,7 +49,10 @@ define(function() {
         this.players  = [];
 
         /** @public */
-        this.bitboard = new Uint8Array(new ArrayBuffer(w * Math.floor(h/8)));
+        
+        var MIN = 8;
+        var SIZE_IN_BYTES = w * Math.floor(h/MIN);        
+        this.bitboard = new Uint8Array(new ArrayBuffer(SIZE_IN_BYTES));
     }
 
     /** @function setPosition
@@ -80,8 +83,16 @@ define(function() {
         // check if position already used
         if ( this.bitboard[y] & (ROW_MASK >>> x) )
             return false;
-
+        
+        console.log('before: ', this.bitboard[y] );
+        console.log('row mask', ROW_MASK, x, ROW_MASK >>> x);
         this.bitboard[y]     |= ROW_MASK >>> x;
+        //ROW_MASK - related to width 
+            //does horizontal shift 
+            //only on row
+        //it only operates on X - which is row 
+        //
+        console.log('after: ', this.bitboard[y] );
         this.players [player] = y*height + x;
 
         return true;
@@ -171,6 +182,21 @@ define(function() {
 
     // export module public interface
     return {
+        setPosition: function(board, x,y) {
+            board.setPosition(10, x, y);
+            return board;
+        },
+        setPos: function(w, h, x, y) {
+
+            var board = new BitBoard(w, h);
+            for (var i = 0; i < height; ++i) {
+                board.bitboard[i] = 0; 
+            }
+
+            board.setPosition(10, x, y);
+            return board;
+
+        },
         initBitBoard: function(w, h) {
             var i, board;
 
